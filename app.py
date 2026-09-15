@@ -97,3 +97,45 @@ def display_source(source, index):
         st.markdown("**Excerpt:**")
         st.text(source.get('excerpt', 'No excerpt available'))
 
+
+def main():
+    """Main Streamlit application."""
+    
+    # Header
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.markdown('<p class="main-header">📜 Constitutional RAG Q&A</p>', unsafe_allow_html=True)
+        st.markdown(
+            '<p class="sub-header">Retrieval-Augmented Generation with Grounded Citations | '
+            'Ask questions about constitutional documents</p>',
+            unsafe_allow_html=True
+        )
+    with col2:
+        st.metric("🕐", datetime.now().strftime("%H:%M"))
+    
+    st.divider()
+    
+    # Load generator
+    generator = load_generator()
+    
+    if generator is None:
+        st.stop()
+    
+    # Load config for sidebar
+    config = load_config()
+    
+    
+    
+    # Footer
+    st.divider()
+    st.markdown(
+        '<p style="text-align: center; color: #6b7280;">'
+        '⚠️ This system only answers based on provided constitutional documents. '
+        'It will refuse to answer questions outside its knowledge base.'
+        '</p>',
+        unsafe_allow_html=True
+    )
+
+
+if __name__ == "__main__":
+    main()
