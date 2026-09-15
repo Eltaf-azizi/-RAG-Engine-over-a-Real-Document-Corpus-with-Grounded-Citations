@@ -124,6 +124,70 @@ def main():
     # Load config for sidebar
     config = load_config()
     
+    # Sidebar
+    with st.sidebar:
+        st.header("⚙️ System Configuration")
+        
+        st.metric("📏 Chunk Size", f"{config['ingestion']['chunk_size']} chars")
+        st.metric("🔍 Top-K Results", config['retrieval']['top_k'])
+        st.metric("🎯 Similarity Threshold", f"{config['retrieval']['similarity_threshold']}")
+        
+        st.divider()
+        
+        st.subheader("🤖 LLM Settings")
+        st.metric("Provider", config['llm']['provider'].title())
+        st.metric("Model", config['llm']['model'])
+        st.metric("Temperature", config['llm']['temperature'])
+        
+        st.divider()
+        
+        st.subheader("📊 Collection Info")
+        try:
+            count = generator.retriever.collection.count()
+            st.metric("Total Chunks", count)
+        except:
+            st.metric("Total Chunks", "N/A")
+        
+        st.divider()
+        
+        st.subheader("📖 Available Documents")
+        try:
+            # Get unique source files from collection
+            results = generator.retriever.collection.get(include=['metadatas'])
+            if results['metadatas']:
+                sources = set(m['source_file'] for m in results['metadatas'])
+                for source in sorted(sources):
+                    st.markdown(f"• `{source}`")
+        except:
+            st.markdown("*Run ingestion first*")
+        
+        st.divider()
+        
+        st.subheader("❓ How It Works")
+        st.markdown("""
+        1. **Type a question** about any constitutional document
+        2. **Retrieval**: System finds most relevant passages
+        3. **Generation**: LLM creates answer using ONLY those passages
+        4. **Citations**: Every fact includes source file and page number
+        5. **Safety**: If nothing relevant is found, system refuses to answer
+        """)
+        
+        st.divider()
+        
+        st.markdown("---")
+        st.caption("Built with Sentence-Transformers, ChromaDB, and LLM")
+        st.caption(f"v1.0.0 | © {datetime.now().year}")
+    
+    # Main content area
+    st.markdown("### 🔍 Ask a Question")
+    
+    # Query input
+    query = st.text_input(
+        "Enter your question about the constitutional documents:",
+        placeholder="e.g., What fundamental rights are guaranteed? How is the president elected? What is the amendment process?",
+        key="query_input"
+    )
+    
     
     
     # Footer
