@@ -64,3 +64,36 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+
+@st.cache_resource
+def load_generator():
+    """Load the answer generator (cached)."""
+    try:
+        return AnswerGenerator()
+    except Exception as e:
+        st.error(f"Failed to initialize system: {e}")
+        st.info("Make sure you've run the ingestion pipeline first:")
+        st.code("python src/embed_store.py", language="bash")
+        return None
+
+
+@st.cache_resource
+def load_config():
+    """Load configuration."""
+    with open('config/config.yaml', 'r') as f:
+        return yaml.safe_load(f)
+
+
+def display_source(source, index):
+    """Display a single source with formatting."""
+    with st.expander(
+        f"📄 Source {index}: {source['source_file']} — Page {source['page']} "
+        f"(Relevance: {source['similarity']:.1%})"
+    ):
+        st.markdown(f"**File:** `{source['source_file']}`")
+        st.markdown(f"**Page:** {source['page']}")
+        st.markdown(f"**Relevance Score:** {source['similarity']:.4f}")
+        st.markdown("**Excerpt:**")
+        st.text(source.get('excerpt', 'No excerpt available'))
+
