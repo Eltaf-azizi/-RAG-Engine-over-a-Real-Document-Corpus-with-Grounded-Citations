@@ -187,8 +187,84 @@ def main():
         placeholder="e.g., What fundamental rights are guaranteed? How is the president elected? What is the amendment process?",
         key="query_input"
     )
+
     
+    # Example questions
+    with st.expander("💡 Example Questions"):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("**Rights & Freedoms:**")
+            st.markdown("- What fundamental rights do citizens have?")
+            st.markdown("- How is freedom of speech protected?")
+            st.markdown("- What rights do minorities have?")
+            st.markdown("**Government Structure:**")
+            st.markdown("- How is the president elected?")
+            st.markdown("- What are the powers of the prime minister?")
+        with col2:
+            st.markdown("**Legal Processes:**")
+            st.markdown("- How can the constitution be amended?")
+            st.markdown("- What is the impeachment process?")
+            st.markdown("- How are judges appointed?")
+            st.markdown("**Powers & Limits:**")
+            st.markdown("- What emergency powers exist?")
+            st.markdown("- How is power divided between federal and state?")
     
+    # Process query
+    if query:
+        with st.spinner("🔍 Searching documents and generating answer..."):
+            result = generator.answer(query)
+        
+        st.divider()
+        
+        # Display answer
+        st.markdown("### 📝 Answer")
+        
+        if not result['has_relevant_info']:
+            st.markdown(
+                f'<div class="refusal-box">'
+                f'<strong>⚠️ Insufficient Information</strong><br>'
+                f'{result["answer"]}<br><br>'
+                f'<small>Top similarity score: {result["top_similarity"]:.4f} '
+                f'(threshold: {result["threshold"]})</small>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+        else:
+            # Check if answer contains citations
+            answer_text = result['answer']
+            has_citations = '[Source:' in answer_text
+            
+            if has_citations:
+                st.markdown(
+                    f'<div class="success-box">{answer_text}</div>',
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    f'<div class="warning-box">'
+                    f'<strong>⚠️ Missing Citations</strong><br>'
+                    f'{answer_text}</div>',
+                    unsafe_allow_html=True
+                )
+            
+            # Display sources
+            if result['sources']:
+                st.markdown("### 📚 Sources Used")
+                
+                for i, source in enumerate(result['sources'], 1):
+                    display_source(source, i)
+            
+            # Metadata
+            st.markdown("### 📊 Query Metadata")
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Top Similarity", f"{result['top_similarity']:.4f}")
+            with col2:
+                st.metric("Threshold", f"{result['threshold']}")
+            with col3:
+                st.metric("Chunks Retrieved", result.get('retrieved_chunks', 'N/A'))
+            with col4:
+                st.metric("Model", result.get('model', 'N/A'))
     
     # Footer
     st.divider()
