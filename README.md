@@ -1,1 +1,3 @@
-# -RAG-Engine-over-a-Real-Document-Corpus-with-Grounded-Citations
+# RAG Constitutional QA
+
+This project scaffold contains the requested folders and placeholder files for a constitutional QA RAG application.
