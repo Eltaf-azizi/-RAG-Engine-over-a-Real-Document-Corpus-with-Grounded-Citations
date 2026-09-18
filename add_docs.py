@@ -43,3 +43,69 @@ Article 19: Protection of certain rights regarding freedom of speech —
 Article 21: Protection of life and personal liberty — No person shall be deprived 
 of his life or personal liberty except according to procedure established by law.
 
+
+CHAPTER 1: FOUNDING PROVISIONS
+
+Section 1: The Republic of South Africa is one, sovereign, democratic state founded 
+on the following values: Human dignity, the achievement of equality and the advancement 
+of human rights and freedoms.
+
+CHAPTER 2: BILL OF RIGHTS
+
+Section 7: This Bill of Rights is a cornerstone of democracy in South Africa. It 
+enshrines the rights of all people in our country.
+
+Section 9: Everyone is equal before the law and has the right to equal protection 
+and benefit of the law. The state may not unfairly discriminate on grounds including 
+race, gender, sex, religion, or language.
+
+Section 10: Everyone has inherent dignity and the right to have their dignity respected 
+and protected.
+
+Section 11: Everyone has the right to life.
+
+Section 16: Everyone has the right to freedom of expression, which includes freedom 
+of the press and other media, freedom to receive or impart information or ideas.
+
+CHAPTER 5: THE PRESIDENT AND NATIONAL EXECUTIVE
+
+Section 83: The President is the Head of State and head of the national executive.
+Section 86: At its first sitting after its election, the National Assembly must elect 
+a woman or a man from among its members to be the President.
+
+CHAPTER 8: COURTS AND ADMINISTRATION OF JUSTICE
+
+Section 165: The judicial authority of the Republic is vested in the courts. The courts 
+are independent and subject only to the Constitution and the law.
+
+Section 167: The Constitutional Court consists of the Chief Justice of South Africa, 
+the Deputy Chief Justice and nine other judges.
+
+EMERGENCY PROVISIONS
+
+Section 37: A state of emergency may be declared only by an Act of Parliament, and only 
+when the life of the nation is threatened by war, invasion, general insurrection, 
+disorder, natural disaster or other public emergency.
+
+AMENDMENT PROCEDURE
+
+Section 74: Any bill amending the Constitution must be passed by the National Assembly 
+with a supporting vote of at least two thirds of its members.
+"""
+}
+
+# Write all documents
+print("=" * 60)
+print("CREATING CONSTITUTIONAL DOCUMENTS")
+print("=" * 60)
+
+for filename, content in constitutions.items():
+    filepath = os.path.join("data/documents", filename)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content.strip())
+    size = os.path.getsize(filepath)
+    print(f"✓ {filename} ({size:,} bytes)")
+
+print(f"\n{len(constitutions)} documents created successfully.")
+print("Location: data/documents/")
+print("\nNext step: python src/ingest.py")
