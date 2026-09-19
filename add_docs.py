@@ -80,6 +80,44 @@ Justice, insure domestic Tranquility, provide for the common defence, promote th
 general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, 
 do ordain and establish this Constitution for the United States of America.
 
+ARTICLE I: LEGISLATIVE BRANCH
+
+Section 1: All legislative Powers herein granted shall be vested in a Congress of the 
+United States, which shall consist of a Senate and House of Representatives.
+
+Section 2: The House of Representatives shall be composed of Members chosen every 
+second Year by the People of the several States. No Person shall be a Representative 
+who shall not have attained to the Age of twenty five Years.
+
+Section 3: The Senate of the United States shall be composed of two Senators from 
+each State, chosen by the Legislature thereof, for six Years; and each Senator shall 
+have one Vote.
+
+ARTICLE II: EXECUTIVE BRANCH
+
+Section 1: The executive Power shall be vested in a President of the United States of 
+America. He shall hold his Office during the Term of four Years. No Person except a 
+natural born Citizen shall be eligible to the Office of President.
+
+Section 2: The President shall be Commander in Chief of the Army and Navy of the 
+United States. He shall have Power to grant Reprieves and Pardons for Offences against 
+the United States.
+
+Section 4: The President, Vice President and all civil Officers of the United States, 
+shall be removed from Office on Impeachment for, and Conviction of, Treason, Bribery, 
+or other high Crimes and Misdemeanors.
+
+ARTICLE III: JUDICIAL BRANCH
+
+Section 1: The judicial Power of the United States shall be vested in one supreme Court, 
+and in such inferior Courts as the Congress may ordain and establish.
+
+ARTICLE V: AMENDMENT PROCESS
+
+The Congress, whenever two thirds of both Houses shall deem it necessary, shall propose 
+Amendments to this Constitution, which shall be valid when ratified by the Legislatures 
+of three fourths of the several States.
+
 
 CHAPTER 1: FOUNDING PROVISIONS
 
