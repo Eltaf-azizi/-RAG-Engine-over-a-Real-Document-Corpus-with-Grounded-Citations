@@ -188,6 +188,61 @@ Constitution. The amendment shall take effect after approval by referendum.
 BASIC LAW FOR THE FEDERAL REPUBLIC OF GERMANY
 (Grundgesetz)
 
+PREAMBLE
+Conscious of their responsibility before God and man, Inspired by the determination 
+to promote world peace as an equal partner in a united Europe, the German people have 
+adopted this Basic Law.
+
+I. BASIC RIGHTS
+
+Article 1 [Human dignity]: Human dignity shall be inviolable. To respect and protect 
+it shall be the duty of all state authority. The German people acknowledge inviolable 
+and inalienable human rights as the basis of every community.
+
+Article 2 [Personal freedoms]: Every person shall have the right to free development 
+of his personality. Every person shall have the right to life and physical integrity.
+
+Article 3 [Equality before the law]: All persons shall be equal before the law. Men 
+and women shall have equal rights.
+
+Article 5 [Freedom of expression]: Every person shall have the right freely to express 
+and disseminate his opinions in speech, writing and pictures.
+
+V. THE FEDERAL PRESIDENT
+
+Article 54 [Election]: The Federal President shall be elected by the Federal Convention 
+without debate. The Federal Convention consists of the Members of the Bundestag and an 
+equal number of members elected by the parliaments of the Länder.
+
+Article 59 [International representation]: The Federal President shall represent the 
+Federation for the purposes of international law.
+
+VI. THE FEDERAL GOVERNMENT
+
+Article 62 [Composition]: The Federal Government shall consist of the Federal Chancellor 
+and the Federal Ministers.
+
+Article 63 [Election of the Federal Chancellor]: The Federal Chancellor shall be elected 
+by the Bundestag without debate on the proposal of the Federal President.
+
+IX. THE JUDICIARY
+
+Article 92 [Court organisation]: The judicial power shall be vested in the judges; it 
+shall be exercised by the Federal Constitutional Court and the courts of the Länder.
+
+Article 79 [Amendment]: This Basic Law may be amended only by a law expressly amending 
+or supplementing its text. Any such law shall be carried by two thirds of the Members 
+of the Bundestag and two thirds of the votes of the Bundesrat.
+""",
+    
+    "constitution_south_africa.txt": r"""
+CONSTITUTION OF THE REPUBLIC OF SOUTH AFRICA, 1996
+
+PREAMBLE
+We, the people of South Africa, Recognise the injustices of our past; Honour those 
+who suffered for justice and freedom in our land; Respect those who have worked to 
+build and develop our country; and Believe that South Africa belongs to all who live 
+in it, united in our diversity.
 
 CHAPTER 1: FOUNDING PROVISIONS
 
