@@ -61,4 +61,111 @@ class Evaluator:
         logger.info(f"Evaluator initialized: {len(self.questions)} questions, "
                    f"LLM available: {self.llm_available}")
     
+    def evaluate_retrieval(self) -> Dict:
+        """
+        Evaluate retrieval hit-rate.
+        
+        A 'hit' means the expected source document appears in the top-k results.
+        
+        Returns:
+            Evaluation results dictionary
+        """
+        print("\n" + "="*70)
+        print("📊 RETRIEVAL EVALUATION")
+        print("="*70)
+        print(f"Questions: {len(self.questions)}")
+        print(f"Top-K: {self.retriever.top_k}")
+        print(f"Threshold: {self.retriever.threshold}")
+        print(f"Target hit-rate: {self.target_hit_rate:.0%}")
+        
+        hits = 0
+        misses = 0
+        results = []
+        
+        for i, q in enumerate(self.questions, 1):
+            question = q['question']
+            expected = q['expected_source']
+            category = q.get('category', 'general')
+            
+            # Search
+            retrieval = self.retriever.search(question)
+            
+            # Check if expected source is in results
+            retrieved_sources = [r['source_file'] for r in retrieval['results']]
+            is_hit = expected in retrieved_sources
+            
+            # Find rank of expected source
+            rank = None
+            for r in retrieval['results']:
+                if r['source_file'] == expected:
+                    rank = r['rank']
+                    break
+            
+            if is_hit:
+                hits += 1
+                status = "✅ HIT"
+            else:
+                misses += 1
+                status = "❌ MISS"
+            
+            print(f"\n[{i:2d}/{len(self.questions)}] {status} | Cat: {category}")
+            print(f"   Q: {question}")
+            print(f"   Expected: {expected}")
+            
+            if is_hit:
+                print(f"   Found at rank: {rank} | Score: {retrieval['top_similarity']:.4f}")
+            else:
+                print(f"   Retrieved: {retrieved_sources[:3]}")
+                print(f"   Top score: {retrieval['top_similarity']:.4f}")
+            
+            results.append({
+                'id': q['id'],
+                'question': question,
+                'expected_source': expected,
+                'category': category,
+                'is_hit': is_hit,
+                'rank': rank,
+                'top_similarity': retrieval['top_similarity'],
+                'retrieved_sources': retrieved_sources,
+                'has_relevant_info': retrieval['has_relevant_info']
+            })
+        
+        hit_rate = hits / len(self.questions) if self.questions else 0
+        passed = hit_rate >= self.target_hit_rate
+        
+        print(f"\n{'='*70}")
+        print(f"📈 RETRIEVAL RESULTS")
+        print(f"   Hits: {hits}/{len(self.questions)}")
+        print(f"   Misses: {misses}/{len(self.questions)}")
+        print(f"   Hit Rate: {hit_rate:.2%}")
+        print(f"   Target: {self.target_hit_rate:.0%}")
+        print(f"   Status: {'✅ PASSED' if passed else '❌ NEEDS IMPROVEMENT'}")
+        
+        # Per-category breakdown
+        categories = {}
+        for r in results:
+            cat = r['category']
+            if cat not in categories:
+                categories[cat] = {'hits': 0, 'total': 0}
+            categories[cat]['total'] += 1
+            if r['is_hit']:
+                categories[cat]['hits'] += 1
+        
+        if len(categories) > 1:
+            print(f"\n📂 Per-Category Breakdown:")
+            for cat, stats in categories.items():
+                rate = stats['hits'] / stats['total']
+                print(f"   {cat}: {stats['hits']}/{stats['total']} ({rate:.0%})")
+        
+        return {
+            'hit_rate': hit_rate,
+            'hits': hits,
+            'misses': misses,
+            'total': len(self.questions),
+            'passed': passed,
+            'target': self.target_hit_rate,
+            'category_breakdown': categories,
+            'detailed_results': results
+        }
+    
     
