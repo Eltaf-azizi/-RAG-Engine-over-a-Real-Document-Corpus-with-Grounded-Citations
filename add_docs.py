@@ -43,6 +43,43 @@ Article 19: Protection of certain rights regarding freedom of speech —
 Article 21: Protection of life and personal liberty — No person shall be deprived 
 of his life or personal liberty except according to procedure established by law.
 
+PART V: THE UNION
+
+Article 52: The President of India — There shall be a President of India.
+Article 53: Executive power of the Union — The executive power of the Union shall be 
+vested in the President and shall be exercised by him either directly or through 
+officers subordinate to him.
+Article 54: Election of President — The President shall be elected by the members 
+of an electoral college consisting of the elected members of both Houses of Parliament 
+and the elected members of the Legislative Assemblies of the States.
+Article 79: Constitution of Parliament — There shall be a Parliament for the Union 
+consisting of the President and two Houses: Council of States and House of the People.
+Article 80: Composition of the Council of States — The Council of States shall consist 
+of twelve members nominated by the President and representatives of the States.
+
+PART XVIII: EMERGENCY PROVISIONS
+
+Article 352: Proclamation of Emergency — If the President is satisfied that a grave 
+emergency exists whereby the security of India is threatened by war, external aggression 
+or armed rebellion, he may declare a Proclamation of Emergency.
+
+PART XX: AMENDMENT OF THE CONSTITUTION
+
+Article 368: Power of Parliament to amend the Constitution — Parliament may amend any 
+provision of this Constitution by way of addition, variation or repeal in accordance 
+with the procedure laid down.
+""",
+    
+    "constitution_usa.txt": r"""
+CONSTITUTION OF THE UNITED STATES OF AMERICA
+(Official text excerpt)
+
+PREAMBLE
+We the People of the United States, in Order to form a more perfect Union, establish 
+Justice, insure domestic Tranquility, provide for the common defence, promote the 
+general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, 
+do ordain and establish this Constitution for the United States of America.
+
 
 CHAPTER 1: FOUNDING PROVISIONS
 
