@@ -148,6 +148,46 @@ origin, race or religion.
 
 TITLE II: THE PRESIDENT OF THE REPUBLIC
 
+Article 5: The President of the Republic shall ensure due respect for the Constitution. 
+He shall ensure, by his arbitration, the proper functioning of the public authorities 
+and the continuity of the State.
+
+Article 6: The President of the Republic shall be elected for a term of five years 
+by direct universal suffrage.
+
+Article 7: The President of the Republic shall be elected by an absolute majority 
+of votes cast. If this is not obtained on the first ballot, a second ballot shall 
+be held.
+
+Article 8: The President of the Republic shall appoint the Prime Minister. He shall 
+terminate the appointment of the Prime Minister when the latter tenders the resignation 
+of the Government.
+
+TITLE III: THE GOVERNMENT
+
+Article 20: The Government shall determine and conduct the policy of the Nation. It 
+shall have at its disposal the civil service and the armed forces.
+
+Article 21: The Prime Minister shall direct the actions of the Government. He shall be 
+responsible for national defence. He shall ensure the implementation of legislation.
+
+TITLE VII: THE CONSTITUTIONAL COUNCIL
+
+Article 56: The Constitutional Council shall comprise nine members, each of whom shall 
+hold office for a non-renewable term of nine years. One third of the Constitutional 
+Council shall be renewed every three years.
+
+TITLE XVI: ON AMENDMENTS TO THE CONSTITUTION
+
+Article 89: The President of the Republic, on the recommendation of the Prime Minister, 
+and Members of Parliament alike shall have the right to initiate amendments to the 
+Constitution. The amendment shall take effect after approval by referendum.
+""",
+    
+    "constitution_germany.txt": r"""
+BASIC LAW FOR THE FEDERAL REPUBLIC OF GERMANY
+(Grundgesetz)
+
 
 CHAPTER 1: FOUNDING PROVISIONS
 
