@@ -118,6 +118,36 @@ The Congress, whenever two thirds of both Houses shall deem it necessary, shall 
 Amendments to this Constitution, which shall be valid when ratified by the Legislatures 
 of three fourths of the several States.
 
+AMENDMENT I: Congress shall make no law respecting an establishment of religion, or 
+prohibiting the free exercise thereof; or abridging the freedom of speech, or of the 
+press; or the right of the people peaceably to assemble, and to petition the Government 
+for a redress of grievances.
+
+AMENDMENT II: A well regulated Militia, being necessary to the security of a free 
+State, the right of the people to keep and bear Arms, shall not be infringed.
+
+AMENDMENT V: No person shall be deprived of life, liberty, or property, without due 
+process of law; nor shall private property be taken for public use, without just 
+compensation.
+""",
+    
+    "constitution_france.txt": r"""
+CONSTITUTION OF FRANCE
+(Constitution of October 4, 1958 - Fifth Republic)
+
+PREAMBLE
+The French people solemnly proclaim their attachment to the Rights of Man and the 
+principles of national sovereignty as defined by the Declaration of 1789, confirmed 
+and complemented by the Preamble to the Constitution of 1946.
+
+TITLE I: ON SOVEREIGNTY
+
+Article 1: France shall be an indivisible, secular, democratic and social Republic. 
+It shall ensure the equality of all citizens before the law, without distinction of 
+origin, race or religion.
+
+TITLE II: THE PRESIDENT OF THE REPUBLIC
+
 
 CHAPTER 1: FOUNDING PROVISIONS
 
