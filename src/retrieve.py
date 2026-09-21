@@ -131,3 +131,55 @@ class Retriever:
         """Search multiple queries at once."""
         return [self.search(q) for q in queries]
 
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    
+    retriever = Retriever()
+    
+    # Test queries
+    test_queries = [
+        {
+            "query": "What fundamental rights do citizens have?",
+            "expected": "Should find constitutional rights content"
+        },
+        {
+            "query": "How is the president elected?",
+            "expected": "Should find election procedure"
+        },
+        {
+            "query": "How can the constitution be amended?",
+            "expected": "Should find amendment process"
+        },
+        {
+            "query": "What is the recipe for chocolate cake?",
+            "expected": "Should have low similarity score"
+        },
+        {
+            "query": "What provisions exist for emergency powers?",
+            "expected": "Should find emergency provisions"
+        }
+    ]
+    
+    print("\n" + "="*70)
+    print("RETRIEVAL TESTING")
+    print("="*70)
+    
+    for test in test_queries:
+        print(f"\n{'─'*70}")
+        print(f"🔍 Query: {test['query']}")
+        print(f"   Expected: {test['expected']}")
+        
+        result = retriever.search(test['query'])
+        
+        print(f"   Has relevant info: {'✅ YES' if result['has_relevant_info'] else '❌ NO'}")
+        print(f"   Top similarity: {result['top_similarity']:.4f} (threshold: {result['threshold']})")
+        print(f"\n   Top {min(2, len(result['results']))} results:")
+        
+        for r in result['results'][:2]:
+            print(f"   #{r['rank']} [{r['similarity']:.4f}] {r['source_file']} - Page {r['page']}")
+            print(f"      Preview: {r['text'][:150]}...")
+    
+    print("\n" + "="*70)
+    print("✅ Retrieval testing complete")
