@@ -100,5 +100,34 @@ class Retriever:
             'results_count': len(retrieved),
             'results': retrieved
         }
+
     
+    def format_context(self, search_results: Dict) -> str:
+        """
+        Format search results into context string for LLM.
+        
+        Args:
+            search_results: Output from search()
+            
+        Returns:
+            Formatted context string
+        """
+        if not search_results['has_relevant_info']:
+            return ""
+        
+        parts = []
+        for r in search_results['results']:
+            parts.append(
+                f"[DOCUMENT {r['rank']}] "
+                f"Source: {r['source_file']}, "
+                f"Page: {r['page']}, "
+                f"Relevance: {r['similarity']:.2%}\n"
+                f"{r['text']}\n"
+            )
+        
+        return "\n---\n".join(parts)
     
+    def batch_search(self, queries: List[str]) -> List[Dict]:
+        """Search multiple queries at once."""
+        return [self.search(q) for q in queries]
+
