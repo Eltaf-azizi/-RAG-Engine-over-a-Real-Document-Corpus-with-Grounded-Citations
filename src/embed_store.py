@@ -81,4 +81,63 @@ class EmbeddingStore:
             )
             logger.info(f"Created new collection: {self.collection_name}")
     
+    def generate_embeddings(self, texts: List[str]) -> np.ndarray:
+        """
+        Generate embeddings for a list of texts.
+        
+        Args:
+            texts: List of text strings
+            
+        Returns:
+            Numpy array of embeddings
+        """
+        logger.info(f"Generating embeddings for {len(texts)} texts...")
+        
+        embeddings = self.model.encode(
+            texts,
+            batch_size=self.batch_size,
+            show_progress_bar=True,
+            convert_to_numpy=True
+        )
+        
+        logger.info(f"Embeddings generated. Shape: {embeddings.shape}")
+        return embeddings
+    
+    def store_chunks(self, chunks: List[Dict], embeddings: Optional[np.ndarray] = None):
+        """
+        Store chunks and their embeddings in ChromaDB.
+        
+        Args:
+            chunks: List of chunk dictionaries
+            embeddings: Pre-computed embeddings (optional)
+        """
+        # Reset for fresh ingestion
+        self.reset_collection()
+        
+        # Generate embeddings if not provided
+        if embeddings is None:
+            texts = [chunk['text'] for chunk in chunks]
+            embeddings = self.generate_embeddings(texts)
+        
+        # Store in batches
+        logger.info(f"Storing {len(chunks)} chunks in ChromaDB...")
+        
+        for i in tqdm(range(0, len(chunks), self.batch_size)):
+            batch_chunks = chunks[i:i + self.batch_size]
+            batch_embeddings = embeddings[i:i + self.batch_size]
+            
+            self.collection.add(
+                ids=[chunk['chunk_id'] for chunk in batch_chunks],
+                embeddings=batch_embeddings.tolist(),
+                documents=[chunk['text'] for chunk in batch_chunks],
+                metadatas=[{
+                    'source_file': chunk['source_file'],
+                    'page': chunk['page'],
+                    'start_char': chunk['start_char'],
+                    'end_char': chunk['end_char']
+                } for chunk in batch_chunks]
+            )
+        
+        logger.info(f"✅ Stored {self.collection.count()} chunks in ChromaDB")
+    
     
