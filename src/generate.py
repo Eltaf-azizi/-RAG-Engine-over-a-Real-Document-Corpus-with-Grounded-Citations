@@ -142,4 +142,71 @@ ANSWER:"""
         
         return sources
     
+    def answer(self, query: str) -> Dict:
+        """
+        Generate a cited answer for the query.
+        
+        Args:
+            query: User's question
+            
+        Returns:
+            Dictionary with answer, sources, and metadata
+        """
+        logger.info(f"Processing query: {query[:100]}...")
+        
+        # Step 1: Retrieve relevant context
+        search_results = self.retriever.search(query)
+        has_context = search_results['has_relevant_info']
+        context = self.retriever.format_context(search_results) if has_context else ""
+        
+        # Step 2: Handle no-context case
+        if not has_context:
+            logger.info("No relevant context found - returning refusal")
+            return {
+                'query': query,
+                'answer': "I don't have enough information in the provided documents to answer this question.",
+                'sources': [],
+                'has_relevant_info': False,
+                'top_similarity': search_results['top_similarity'],
+                'threshold': search_results['threshold'],
+                'model': self.model,
+                'provider': self.provider
+            }
+        
+        # Step 3: Build prompt and call LLM
+        prompt = self._build_prompt(query, context, has_context)
+        
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=self.temperature,
+                max_tokens=self.max_tokens
+            )
+            answer_text = response.choices[0].message.content
+            logger.info(f"Answer generated: {len(answer_text)} characters")
+        except Exception as e:
+            logger.error(f"LLM call failed: {e}")
+            answer_text = f"Error generating answer: {str(e)}"
+        
+        # Step 4: Format sources
+        sources = self._format_sources(search_results)
+        
+        return {
+            'query': query,
+            'answer': answer_text,
+            'sources': sources,
+            'has_relevant_info': True,
+            'top_similarity': search_results['top_similarity'],
+            'threshold': search_results['threshold'],
+            'retrieved_chunks': search_results['results_count'],
+            'model': self.model,
+            'provider': self.provider
+        }
     
+    def batch_answer(self, queries: List[str]) -> List[Dict]:
+        """Answer multiple queries at once."""
+        return [self.answer(q) for q in queries]
+
