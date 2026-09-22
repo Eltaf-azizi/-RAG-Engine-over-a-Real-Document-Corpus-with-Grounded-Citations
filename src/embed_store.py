@@ -55,4 +55,30 @@ class EmbeddingStore:
         
         logger.info(f"ChromaDB initialized at: {self.persist_directory}")
     
+    def reset_collection(self):
+        """Delete and recreate the collection (fresh start)."""
+        try:
+            self.client.delete_collection(self.collection_name)
+            logger.info(f"Deleted existing collection: {self.collection_name}")
+        except Exception:
+            pass
+        
+        self.collection = self.client.create_collection(
+            name=self.collection_name,
+            metadata={"hnsw:space": "cosine"}
+        )
+        logger.info(f"Created new collection: {self.collection_name}")
+    
+    def get_or_create_collection(self):
+        """Get existing collection or create new one."""
+        try:
+            self.collection = self.client.get_collection(self.collection_name)
+            logger.info(f"Using existing collection: {self.collection_name} ({self.collection.count()} chunks)")
+        except Exception:
+            self.collection = self.client.create_collection(
+                name=self.collection_name,
+                metadata={"hnsw:space": "cosine"}
+            )
+            logger.info(f"Created new collection: {self.collection_name}")
+    
     
