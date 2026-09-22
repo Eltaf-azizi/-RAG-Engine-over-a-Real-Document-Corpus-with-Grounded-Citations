@@ -102,3 +102,44 @@ Do not add explanations, apologies, or suggestions."""
         
         return f"""{self.system_prompt}
 
+CONTEXT FROM CONSTITUTIONAL DOCUMENTS:
+{context}
+
+QUESTION: {query}
+
+INSTRUCTIONS:
+1. Answer using ONLY the information from the context above
+2. Cite EVERY fact using this format: [Source: filename, Page: X]
+3. If the context partially answers the question, state what you know and what's missing
+4. Do NOT use any outside knowledge or training data
+5. Be concise, factual, and well-organized
+
+ANSWER:"""
+    
+    def _format_sources(self, search_results: Dict) -> List[Dict]:
+        """
+        Extract formatted source information from search results.
+        
+        Args:
+            search_results: Output from retriever.search()
+            
+        Returns:
+            List of source dictionaries
+        """
+        sources = []
+        seen = set()
+        
+        for r in search_results.get('results', []):
+            key = (r['source_file'], r['page'])
+            if key not in seen:
+                sources.append({
+                    'source_file': r['source_file'],
+                    'page': r['page'],
+                    'similarity': r['similarity'],
+                    'excerpt': r['text'][:200] + "..."
+                })
+                seen.add(key)
+        
+        return sources
+    
+    
