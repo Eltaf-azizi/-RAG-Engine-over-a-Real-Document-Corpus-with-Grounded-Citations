@@ -140,4 +140,67 @@ class EmbeddingStore:
         
         logger.info(f"✅ Stored {self.collection.count()} chunks in ChromaDB")
     
+    def full_ingestion(self, data_dir: str = "data/documents"):
+        """
+        Complete ingestion pipeline: load → embed → store.
+        
+        Args:
+            data_dir: Directory containing source documents
+        """
+        print("\n" + "="*60)
+        print("FULL INGESTION PIPELINE")
+        print("="*60)
+        
+        # Step 1: Load and chunk documents
+        print("\n📄 Step 1: Loading documents...")
+        loader = DocumentLoader()
+        chunks = loader.load_all_documents()
+        
+        if not chunks:
+            print("❌ No documents found!")
+            return
+        
+        loader.save_chunks(chunks)
+        
+        # Step 2: Generate embeddings
+        print(f"\n🧮 Step 2: Generating embeddings for {len(chunks)} chunks...")
+        texts = [chunk['text'] for chunk in chunks]
+        embeddings = self.generate_embeddings(texts)
+        
+        # Step 3: Store in ChromaDB
+        print(f"\n💾 Step 3: Storing in ChromaDB...")
+        self.store_chunks(chunks, embeddings)
+        
+        # Summary
+        print("\n" + "="*60)
+        print("✅ INGESTION COMPLETE")
+        print(f"   Documents: 5")
+        print(f"   Chunks: {len(chunks)}")
+        print(f"   Embedding dimension: {embeddings.shape[1]}")
+        print(f"   Vector store: {self.persist_directory}")
+        print("="*60)
     
+    def get_stats(self) -> Dict:
+        """Get collection statistics."""
+        count = self.collection.count() if hasattr(self, 'collection') else 0
+        return {
+            "collection_name": self.collection_name,
+            "total_chunks": count,
+            "embedding_model": self.model_name,
+            "embedding_dimension": self.model.get_sentence_embedding_dimension(),
+            "persist_directory": self.persist_directory
+        }
+
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    
+    store = EmbeddingStore()
+    store.full_ingestion()
+    
+    # Print stats
+    stats = store.get_stats()
+    print(f"\n📊 Final Stats:")
+    for key, value in stats.items():
+        print(f"   {key}: {value}")
