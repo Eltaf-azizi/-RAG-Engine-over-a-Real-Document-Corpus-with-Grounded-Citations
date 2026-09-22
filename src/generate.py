@@ -210,3 +210,42 @@ ANSWER:"""
         """Answer multiple queries at once."""
         return [self.answer(q) for q in queries]
 
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    
+    print("\n" + "="*70)
+    print("LLM ANSWER GENERATION TEST")
+    print("="*70)
+    
+    generator = AnswerGenerator()
+    
+    test_questions = [
+        "What fundamental rights do citizens have?",
+        "How can the constitution be amended?",
+        "What are the powers of the executive branch?",
+        "What is the recipe for chocolate cake?"
+    ]
+    
+    for i, question in enumerate(test_questions, 1):
+        print(f"\n{'─'*70}")
+        print(f"Q{i}: {question}")
+        
+        result = generator.answer(question)
+        
+        print(f"\n📝 Answer:")
+        print(f"   {result['answer'][:500]}")
+        
+        if result['sources']:
+            print(f"\n📚 Sources used:")
+            for src in result['sources'][:3]:
+                print(f"   • {src['source_file']} (Page {src['page']}) [{src['similarity']:.2%}]")
+        
+        print(f"\n📊 Metadata:")
+        print(f"   Model: {result['model']}")
+        print(f"   Top similarity: {result['top_similarity']:.4f}")
+        print(f"   Has relevant info: {result['has_relevant_info']}")
+    
+    print("\n" + "="*70)
+    print("✅ Answer generation test complete")
