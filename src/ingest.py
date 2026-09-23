@@ -148,4 +148,74 @@ class DocumentLoader:
         logger.info(f"Created {len(chunks)} chunks from {source_file}")
         return chunks
     
+    def _split_into_chunks(self, text: str, source_file: str, page: str) -> List[Dict]:
+        """
+        Split text into overlapping chunks with sentence boundary awareness.
+        
+        Args:
+            text: Text to chunk
+            source_file: Source filename
+            page: Page number
+            
+        Returns:
+            List of chunk dictionaries
+        """
+        chunks = []
+        text = text.strip()
+        
+        if len(text) < self.min_chunk_length:
+            return chunks
+        
+        start = 0
+        chunk_index = 0
+        
+        while start < len(text):
+            end = start + self.chunk_size
+            
+            if end >= len(text):
+                # Last chunk
+                chunk_text = text[start:].strip()
+            else:
+                # Find good break point
+                # Priority: sentence boundary > paragraph > word
+                search_end = min(end + 100, len(text))
+                search_start = max(end - 100, start + self.min_chunk_length)
+                
+                # Try sentence boundaries
+                for i in range(search_end - 1, search_start, -1):
+                    if text[i] in '.!?':
+                        if i + 1 < len(text) and text[i + 1] in ' \n':
+                            end = i + 1
+                            break
+                else:
+                    # Try paragraph break
+                    for i in range(search_end - 1, search_start, -1):
+                        if text[i:i+2] == '\n\n':
+                            end = i
+                            break
+                    else:
+                        # Try word boundary
+                        for i in range(search_end - 1, search_start, -1):
+                            if text[i] == ' ':
+                                end = i
+                                break
+            
+            chunk_text = text[start:end].strip()
+            
+            if len(chunk_text) >= self.min_chunk_length:
+                chunks.append({
+                    'chunk_id': f"{source_file}_p{page}_c{chunk_index}",
+                    'text': chunk_text,
+                    'source_file': source_file,
+                    'page': page,
+                    'start_char': start,
+                    'end_char': end,
+                    'chunk_index': chunk_index
+                })
+                chunk_index += 1
+            
+            start = end - self.chunk_overlap
+        
+        return chunks
+    
     
