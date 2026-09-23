@@ -303,3 +303,41 @@ class DocumentLoader:
         }
 
 
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    
+    loader = DocumentLoader()
+    
+    print("\n" + "="*60)
+    print("DOCUMENT INGESTION")
+    print("="*60)
+    
+    chunks = loader.load_all_documents()
+    
+    if chunks:
+        # Save metadata
+        loader.save_chunks(chunks)
+        
+        # Print statistics
+        stats = loader.get_statistics(chunks)
+        print(f"\n📊 Ingestion Statistics:")
+        print(f"   Total chunks: {stats['total_chunks']}")
+        print(f"   Total characters: {stats['total_characters']:,}")
+        print(f"   Average chunk size: {stats['average_chunk_size']} chars")
+        print(f"   Unique pages: {stats['unique_pages']}")
+        print(f"\n   Documents processed:")
+        for doc, count in stats['documents'].items():
+            print(f"     • {doc}: {count} chunks")
+        
+        # Show sample
+        print(f"\n📝 Sample Chunk:")
+        sample = chunks[len(chunks)//2]  # Middle chunk
+        print(f"   ID: {sample['chunk_id']}")
+        print(f"   Source: {sample['source_file']}")
+        print(f"   Page: {sample['page']}")
+        print(f"   Text preview: {sample['text'][:200]}...")
+        
+        print(f"\n✅ Ingestion complete!")
+    else:
+        print("\n⚠️  No documents found. Add PDFs to data/documents/")
