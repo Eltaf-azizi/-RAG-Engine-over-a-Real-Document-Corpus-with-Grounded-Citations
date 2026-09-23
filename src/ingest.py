@@ -97,3 +97,55 @@ class DocumentLoader:
         return "\n\n".join(pages)
     
     
+    def load_document(self, filepath: str) -> str:
+        """Load document based on extension."""
+        ext = os.path.splitext(filepath)[1].lower()
+        
+        if ext == '.pdf':
+            return self.load_pdf(filepath)
+        elif ext in ['.txt', '.md', '.markdown']:
+            return self.load_text_file(filepath)
+        else:
+            raise ValueError(f"Unsupported format: {ext}")
+    
+    def chunk_text(self, text: str, source_file: str) -> List[Dict]:
+        """
+        Split document text into overlapping chunks with metadata.
+        
+        Args:
+            text: Full document text with page markers
+            source_file: Source filename for metadata
+            
+        Returns:
+            List of chunk dictionaries with text, source, and page info
+        """
+        chunks = []
+        
+        if "[PAGE_" not in text:
+            # No page markers, treat as single page
+            return self._split_into_chunks(text, source_file, "1")
+        
+        # Split by page markers
+        sections = text.split("[PAGE_")
+        
+        for section in sections:
+            if not section.strip():
+                continue
+            
+            try:
+                # Extract page number
+                end_bracket = section.index(']')
+                page_num = section[:end_bracket].strip()
+                content = section[end_bracket + 1:].strip()
+                
+                if content and len(content) >= self.min_chunk_length:
+                    page_chunks = self._split_into_chunks(content, source_file, page_num)
+                    chunks.extend(page_chunks)
+            except (ValueError, IndexError) as e:
+                logger.warning(f"Error parsing page section: {e}")
+                continue
+        
+        logger.info(f"Created {len(chunks)} chunks from {source_file}")
+        return chunks
+    
+    
