@@ -260,4 +260,24 @@ class DocumentLoader:
         logger.info(f"Total chunks created: {len(all_chunks)}")
         return all_chunks
     
+    def save_chunks(self, chunks: List[Dict], output_path: str = "data/processed/chunks.json"):
+        """Save chunks to JSON for inspection."""
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
+        # Create serializable version (no need to store full text twice)
+        serializable = []
+        for chunk in chunks:
+            serializable.append({
+                'chunk_id': chunk['chunk_id'],
+                'source_file': chunk['source_file'],
+                'page': chunk['page'],
+                'text_preview': chunk['text'][:200] + "...",
+                'text_length': len(chunk['text'])
+            })
+        
+        with open(output_path, 'w') as f:
+            json.dump(serializable, f, indent=2)
+        
+        logger.info(f"Saved chunk metadata to {output_path}")
+    
     
