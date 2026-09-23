@@ -218,4 +218,46 @@ class DocumentLoader:
         
         return chunks
     
+    def load_all_documents(self) -> List[Dict]:
+        """
+        Load and chunk all documents in the data directory.
+        
+        Returns:
+            List of all chunk dictionaries
+        """
+        if not os.path.exists(self.data_directory):
+            os.makedirs(self.data_directory)
+            logger.warning(f"Created data directory: {self.data_directory}")
+            logger.warning("Please add PDF documents to this directory.")
+            return []
+        
+        # Find all supported files
+        files = []
+        for f in os.listdir(self.data_directory):
+            ext = os.path.splitext(f)[1].lower()
+            if ext in self.supported_formats:
+                files.append(f)
+        
+        if not files:
+            logger.warning(f"No supported documents found in {self.data_directory}")
+            return []
+        
+        logger.info(f"Found {len(files)} documents to process")
+        
+        all_chunks = []
+        for filename in tqdm(files, desc="Processing documents"):
+            filepath = os.path.join(self.data_directory, filename)
+            
+            try:
+                text = self.load_document(filepath)
+                chunks = self.chunk_text(text, filename)
+                all_chunks.extend(chunks)
+                logger.info(f"  {filename}: {len(chunks)} chunks")
+            except Exception as e:
+                logger.error(f"Failed to process {filename}: {e}")
+                continue
+        
+        logger.info(f"Total chunks created: {len(all_chunks)}")
+        return all_chunks
+    
     
