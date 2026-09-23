@@ -279,5 +279,27 @@ class DocumentLoader:
             json.dump(serializable, f, indent=2)
         
         logger.info(f"Saved chunk metadata to {output_path}")
+
     
-    
+    def get_statistics(self, chunks: List[Dict]) -> Dict:
+        """Calculate statistics about the chunks."""
+        if not chunks:
+            return {"total_chunks": 0}
+        
+        sources = {}
+        total_chars = 0
+        
+        for chunk in chunks:
+            source = chunk['source_file']
+            sources[source] = sources.get(source, 0) + 1
+            total_chars += len(chunk['text'])
+        
+        return {
+            "total_chunks": len(chunks),
+            "total_characters": total_chars,
+            "average_chunk_size": total_chars // len(chunks) if chunks else 0,
+            "documents": sources,
+            "unique_pages": len(set(c['page'] for c in chunks))
+        }
+
+
