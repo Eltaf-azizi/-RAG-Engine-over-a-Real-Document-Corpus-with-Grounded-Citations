@@ -168,4 +168,56 @@ class Evaluator:
             'detailed_results': results
         }
     
-    
+    def evaluate_refusal(self) -> Dict:
+        """
+        Test that the system refuses to answer out-of-scope questions.
+        
+        Returns:
+            Refusal evaluation results
+        """
+        print("\n" + "="*70)
+        print("🚫 REFUSAL EVALUATION (Hallucination Check)")
+        print("="*70)
+        
+        refusals = 0
+        hallucinations = 0
+        results = []
+        
+        for i, question in enumerate(self.out_of_scope, 1):
+            retrieval = self.retriever.search(question)
+            
+            # Check if below threshold (should refuse)
+            should_refuse = not retrieval['has_relevant_info']
+            did_refuse = retrieval['top_similarity'] < self.retriever.threshold
+            
+            if self.llm_available:
+                # Full test with LLM
+                answer_result = self.generator.answer(question)
+                answer_text = answer_result['answer']
+                is_refusal = "don't have enough information" in answer_text.lower()
+            else:
+                # Retrieval-only test
+                answer_text = "N/A (LLM not available)"
+                is_refusal = did_refuse
+            
+            if is_refusal:
+                refusals += 1
+                status = "✅ REFUSED"
+            else:
+                hallucinations += 1
+                status = "⚠️ HALLUCINATION RISK"
+            
+            print(f"\n[{i}/{len(self.out_of_scope)}] {status}")
+            print(f"   Q: {question}")
+            print(f"   Top similarity: {retrieval['top_similarity']:.4f} (threshold: {self.retriever.threshold})")
+            print(f"   Answer: {answer_text[:200]}...")
+            
+            results.append({
+                'question': question,
+                'top_similarity': retrieval['top_similarity'],
+                'below_threshold': did_refuse,
+                'is_refusal': is_refusal,
+                'answer_preview': answer_text[:200]
+            })
+        
+        
