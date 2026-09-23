@@ -220,4 +220,41 @@ class Evaluator:
                 'answer_preview': answer_text[:200]
             })
         
+        refusal_rate = refusals / len(self.out_of_scope) if self.out_of_scope else 0
+        
+        print(f"\n{'='*70}")
+        print(f"📈 REFUSAL RESULTS")
+        print(f"   Refusals: {refusals}/{len(self.out_of_scope)}")
+        print(f"   Hallucinations: {hallucinations}/{len(self.out_of_scope)}")
+        print(f"   Refusal Rate: {refusal_rate:.2%}")
+        print(f"   Status: {'✅ GOOD' if refusal_rate >= 0.8 else '⚠️ NEEDS IMPROVEMENT'}")
+        
+        return {
+            'refusal_rate': refusal_rate,
+            'refusals': refusals,
+            'hallucinations': hallucinations,
+            'total': len(self.out_of_scope),
+            'passed': refusal_rate >= 0.8,
+            'detailed_results': results
+        }
+    
+    def evaluate_answer_quality(self) -> Dict:
+        """
+        Evaluate answer quality for in-scope questions.
+        Requires LLM to be available.
+        """
+        if not self.llm_available:
+            print("\n⚠️ LLM not available. Skipping answer quality evaluation.")
+            return {'skipped': True, 'reason': 'LLM not available'}
+        
+        print("\n" + "="*70)
+        print("📝 ANSWER QUALITY EVALUATION")
+        print("="*70)
+        
+        results = []
+        has_citation_count = 0
+        refused_when_should_answer = 0
+        
+        sample_questions = self.questions[:10]  # Test first 10
+        
         
