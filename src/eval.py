@@ -257,4 +257,52 @@ class Evaluator:
         
         sample_questions = self.questions[:10]  # Test first 10
         
+        for i, q in enumerate(sample_questions, 1):
+            question = q['question']
+            expected = q['expected_source']
+            
+            result = self.generator.answer(question)
+            answer = result['answer']
+            
+            # Check if answer has citations
+            has_citation = "[Source:" in answer or "[source:" in answer.lower()
+            
+            # Check if it incorrectly refused
+            is_refusal = "don't have enough information" in answer.lower()
+            
+            if has_citation:
+                has_citation_count += 1
+            
+            if is_refusal:
+                refused_when_should_answer += 1
+            
+            print(f"\n[{i}/{len(sample_questions)}]")
+            print(f"   Q: {question}")
+            print(f"   Has citations: {'✅' if has_citation else '❌'}")
+            print(f"   Refused: {'⚠️' if is_refusal else '✅'}")
+            print(f"   Answer preview: {answer[:200]}...")
+            
+            results.append({
+                'question': question,
+                'expected_source': expected,
+                'has_citation': has_citation,
+                'is_refusal': is_refusal,
+                'answer_length': len(answer),
+                'sources_count': len(result.get('sources', []))
+            })
         
+        citation_rate = has_citation_count / len(sample_questions) if sample_questions else 0
+        
+        print(f"\n📈 ANSWER QUALITY RESULTS")
+        print(f"   Citation rate: {has_citation_count}/{len(sample_questions)} ({citation_rate:.0%})")
+        print(f"   Incorrect refusals: {refused_when_should_answer}/{len(sample_questions)}")
+        
+        return {
+            'citation_rate': citation_rate,
+            'has_citation_count': has_citation_count,
+            'incorrect_refusals': refused_when_should_answer,
+            'total_tested': len(sample_questions),
+            'detailed_results': results
+        }
+    
+    
