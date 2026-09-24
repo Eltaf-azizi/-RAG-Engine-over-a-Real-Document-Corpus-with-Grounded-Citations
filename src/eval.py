@@ -305,4 +305,42 @@ class Evaluator:
             'detailed_results': results
         }
     
-    
+    def run_full_evaluation(self) -> Dict:
+        """
+        Run complete evaluation suite.
+        
+        Returns:
+            Complete evaluation report
+        """
+        print("\n" + "="*70)
+        print("🔬 FULL EVALUATION SUITE")
+        print("   RAG Constitutional QA System")
+        print(f"   {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print("="*70)
+        
+        # Run evaluations
+        retrieval_results = self.evaluate_retrieval()
+        refusal_results = self.evaluate_refusal()
+        answer_results = self.evaluate_answer_quality()
+        
+        # Compile final report
+        report = {
+            'timestamp': datetime.now().isoformat(),
+            'config': {
+                'chunk_size': self.config['ingestion']['chunk_size'],
+                'top_k': self.config['retrieval']['top_k'],
+                'threshold': self.config['retrieval']['similarity_threshold'],
+                'model': self.config['llm']['model'],
+                'provider': self.config['llm']['provider']
+            },
+            'retrieval': retrieval_results,
+            'refusal': refusal_results,
+            'answer_quality': answer_results,
+            'definition_of_done': {
+                'cites_correct_source_80_percent': retrieval_results['passed'],
+                'refuses_when_no_context': refusal_results['passed'],
+                'overall_passed': retrieval_results['passed'] and refusal_results['passed']
+            }
+        }
+        
+        
