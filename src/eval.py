@@ -343,4 +343,36 @@ class Evaluator:
             }
         }
         
+        # Print final verdict
+        print("\n" + "="*70)
+        print("🏆 DEFINITION OF DONE - FINAL VERDICT")
+        print("="*70)
         
+        dod = report['definition_of_done']
+        
+        print(f"\n   1. Cites correct source on ≥80% of eval questions")
+        print(f"      Hit rate: {retrieval_results['hit_rate']:.2%} | "
+              f"{'✅ PASS' if dod['cites_correct_source_80_percent'] else '❌ FAIL'}")
+        
+        print(f"\n   2. Refuses when no relevant context exists")
+        print(f"      Refusal rate: {refusal_results['refusal_rate']:.2%} | "
+              f"{'✅ PASS' if dod['refuses_when_no_context'] else '❌ FAIL'}")
+        
+        print(f"\n   3. Overall: {'✅ ALL CHECKS PASSED' if dod['overall_passed'] else '❌ SOME CHECKS FAILED'}")
+        
+        # Save report
+        output_path = "eval_results.json"
+        with open(output_path, 'w') as f:
+            json.dump(report, f, indent=2, default=str)
+        
+        print(f"\n📄 Detailed report saved to: {output_path}")
+        
+        return report
+
+
+if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    
+    evaluator = Evaluator()
+    results = evaluator.run_full_evaluation()
