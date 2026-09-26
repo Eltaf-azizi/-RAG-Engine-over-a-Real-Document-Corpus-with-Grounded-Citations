@@ -195,4 +195,50 @@ class DocumentDownloader:
         
         return True, f"Valid PDF ({size:,} bytes)"
     
+    def download_country(self, country_key: str) -> Tuple[bool, str]:
+        """
+        Download a single country's constitution.
+        
+        Returns:
+            Tuple of (success, message)
+        """
+        if country_key not in DOCUMENTS:
+            return False, f"Unknown country: {country_key}"
+        
+        doc = DOCUMENTS[country_key]
+        filepath = self.output_dir / doc['filename']
+        
+        # Check if already exists and valid
+        valid, message = self.verify_file(filepath, doc['min_size_bytes'])
+        if valid:
+            return True, f"Already exists — {message}"
+        
+        # Try primary URL
+        success, message = self.download_file(
+            doc['primary_url'],
+            filepath,
+            f"{doc['description']} (from {doc['source']})"
+        )
+        
+        if success and self.verify_file(filepath, doc['min_size_bytes'])[0]:
+            return True, message
+        
+        # Try alternatives
+        for i, alt_url in enumerate(doc['alternative_urls'], 1):
+            self.log(f"\n  Primary failed. Trying alternative {i}...")
+            success, message = self.download_file(
+                alt_url,
+                filepath,
+                f"{doc['description']} (alternative {i})"
+            )
+            
+            if success and self.verify_file(filepath, doc['min_size_bytes'])[0]:
+                return True, f"Downloaded via alternative {i}"
+        
+        # Clean up partial download
+        if filepath.exists():
+            filepath.unlink()
+        
+        return False, "All download attempts failed"
+    
     
