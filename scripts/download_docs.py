@@ -266,4 +266,22 @@ class DocumentDownloader:
         
         return results
     
+    def verify_all(self) -> Dict[str, Tuple[bool, str]]:
+        """Verify all existing downloads."""
+        print("=" * 70)
+        print("VERIFYING DOWNLOADED DOCUMENTS")
+        print("=" * 70)
+        
+        results = {}
+        
+        for country_key, doc in DOCUMENTS.items():
+            filepath = self.output_dir / doc['filename']
+            valid, message = self.verify_file(filepath, doc['min_size_bytes'])
+            results[country_key] = (valid, message)
+            
+            status = "VALID" if valid else "INVALID/MISSING"
+            print(f"  [{status}] {doc['filename']}: {message}")
+        
+        return results
+    
     
