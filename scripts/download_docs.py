@@ -284,4 +284,36 @@ class DocumentDownloader:
         
         return results
     
-    
+    def print_summary(self, results: Dict[str, Tuple[bool, str]]):
+        """Print summary report."""
+        print(f"\n{'=' * 70}")
+        print("DOWNLOAD SUMMARY REPORT")
+        print("=" * 70)
+        
+        successful = sum(1 for v in results.values() if v[0])
+        total = len(results)
+        
+        print(f"\n  Total documents: {total}")
+        print(f"  Successfully downloaded: {successful}")
+        print(f"  Failed: {total - successful}")
+        print(f"  Success rate: {successful/total*100:.0f}%")
+        
+        print(f"\n  {'Country':<20} {'Status':<10} {'Details'}")
+        print(f"  {'─'*20} {'─'*10} {'─'*40}")
+        
+        for country_key, (success, message) in results.items():
+            status = "DONE" if success else "FAILED"
+            print(f"  {country_key:<20} {status:<10} {message[:40]}")
+        
+        if successful < total:
+            print(f"\n  MANUAL DOWNLOAD REQUIRED:")
+            print(f"  {'─'*40}")
+            for country_key, (success, _) in results.items():
+                if not success:
+                    doc = DOCUMENTS[country_key]
+                    print(f"\n  {country_key.upper()}:")
+                    print(f"    Primary: {doc['primary_url']}")
+                    for i, url in enumerate(doc['alternative_urls'], 1):
+                        print(f"    Alt {i}: {url}")
+
+
