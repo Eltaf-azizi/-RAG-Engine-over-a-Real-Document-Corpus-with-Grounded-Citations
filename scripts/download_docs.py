@@ -317,3 +317,48 @@ class DocumentDownloader:
                         print(f"    Alt {i}: {url}")
 
 
+def main():
+    """Main entry point."""
+    parser = argparse.ArgumentParser(
+        description="Download constitutional documents from official sources",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python scripts/download_docs.py                    # Download all
+  python scripts/download_docs.py --verify           # Verify existing
+  python scripts/download_docs.py --country pakistan # Download single
+  python scripts/download_docs.py --output custom_dir # Custom output
+        """
+    )
+    parser.add_argument('--country', type=str, help='Download specific country')
+    parser.add_argument('--verify', action='store_true', help='Verify existing downloads')
+    parser.add_argument('--output', type=str, default='data/documents', help='Output directory')
+    parser.add_argument('--quiet', action='store_true', help='Suppress progress output')
+    
+    args = parser.parse_args()
+    
+    downloader = DocumentDownloader(output_dir=args.output, verbose=not args.quiet)
+    
+    if args.verify:
+        results = downloader.verify_all()
+    elif args.country:
+        country_key = args.country.lower().replace(' ', '_')
+        success, message = downloader.download_country(country_key)
+        results = {country_key: (success, message)}
+        downloader.print_summary(results)
+    else:
+        results = downloader.download_all()
+        downloader.print_summary(results)
+    
+    # Return exit code
+    successful = sum(1 for v in results.values() if v[0])
+    if successful == len(results):
+        print("\nALL DOCUMENTS READY. Next step: python src/ingest.py")
+        sys.exit(0)
+    else:
+        print("\nSOME DOCUMENTS NEED MANUAL DOWNLOAD. See URLs above.")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
