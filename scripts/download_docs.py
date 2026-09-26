@@ -241,4 +241,29 @@ class DocumentDownloader:
         
         return False, "All download attempts failed"
     
+    def download_all(self) -> Dict[str, Tuple[bool, str]]:
+        """Download all constitutional documents."""
+        print("=" * 70)
+        print("CONSTITUTIONAL DOCUMENT DOWNLOADER")
+        print("=" * 70)
+        print(f"Countries: {', '.join(DOCUMENTS.keys())}")
+        print(f"Output directory: {self.output_dir.absolute()}")
+        print(f"Total documents: {len(DOCUMENTS)}")
+        print("=" * 70)
+        
+        results = {}
+        
+        for country_key in DOCUMENTS:
+            print(f"\n{'─' * 70}")
+            print(f"[{country_key.upper()}]")
+            
+            success, message = self.download_country(country_key)
+            results[country_key] = (success, message)
+            
+            status = "DONE" if success else "FAILED"
+            print(f"  STATUS: {status}")
+            print(f"  DETAIL: {message}")
+        
+        return results
+    
     
