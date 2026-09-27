@@ -122,4 +122,60 @@ class DocumentDownloader:
         if self.verbose:
             print(message)
     
+    def download_file(self, url: str, filepath: Path, description: str) -> Tuple[bool, str]:
+        """
+        Download a single file with progress tracking.
+        
+        Returns:
+            Tuple of (success, message)
+        """
+        self.log(f"\n  Downloading: {description}")
+        self.log(f"  URL: {url[:100]}...")
+        
+        try:
+            req = urllib.request.Request(url, headers=self.headers)
+            
+            with urllib.request.urlopen(req, context=self.ssl_context, timeout=90) as response:
+                total_size = int(response.headers.get('Content-Length', 0))
+                content_type = response.headers.get('Content-Type', 'unknown')
+                
+                # Verify it's a PDF or binary file
+                if 'html' in content_type.lower():
+                    return False, "Received HTML instead of PDF (possible redirect)"
+                
+                block_size = 16384
+                downloaded = 0
+                
+                with open(filepath, 'wb') as f:
+                    while True:
+                        block = response.read(block_size)
+                        if not block:
+                            break
+                        f.write(block)
+                        downloaded += len(block)
+                        
+                        if total_size > 0 and self.verbose:
+                            percent = (downloaded / total_size) * 100
+                            bar_length = 40
+                            filled = int(bar_length * downloaded // total_size)
+                            bar = '█' * filled + '░' * (bar_length - filled)
+                            sys.stdout.write(f'\r  [{bar}] {percent:6.1f}% ({downloaded:>10,} / {total_size:>10,} bytes)')
+                            sys.stdout.flush()
+                
+                if total_size > 0:
+                    sys.stdout.write('\n')
+                
+                actual_size = filepath.stat().st_size
+                self.log(f"  SUCCESS: {actual_size:,} bytes downloaded")
+                return True, f"Downloaded {actual_size:,} bytes"
+                
+        except urllib.error.HTTPError as e:
+            return False, f"HTTP Error {e.code}: {e.reason}"
+        except urllib.error.URLError as e:
+            return False, f"URL Error: {e.reason}"
+        except TimeoutError:
+            return False, "Connection timed out"
+        except Exception as e:
+            return False, f"Error: {str(e)}"
+    
     
