@@ -178,4 +178,21 @@ class DocumentDownloader:
         except Exception as e:
             return False, f"Error: {str(e)}"
     
+    def verify_file(self, filepath: Path, min_size: int) -> Tuple[bool, str]:
+        """Verify that a downloaded file is valid."""
+        if not filepath.exists():
+            return False, "File does not exist"
+        
+        size = filepath.stat().st_size
+        if size < min_size:
+            return False, f"File too small ({size:,} bytes < {min_size:,} bytes minimum)"
+        
+        # Check if it starts with PDF magic bytes
+        with open(filepath, 'rb') as f:
+            header = f.read(5)
+            if header != b'%PDF-':
+                return False, "File is not a valid PDF (wrong file format)"
+        
+        return True, f"Valid PDF ({size:,} bytes)"
+    
     
