@@ -93,3 +93,33 @@ DOCUMENTS: Dict[str, Dict] = {
         "source": "Justice Laws Website (Canada)"
     }
 }
+
+
+class DocumentDownloader:
+    """Professional downloader with retry, verification, and reporting."""
+    
+    def __init__(self, output_dir: str = "data/documents", verbose: bool = True):
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.verbose = verbose
+        
+        # SSL context (government sites may have certificate issues)
+        self.ssl_context = ssl.create_default_context()
+        self.ssl_context.check_hostname = False
+        self.ssl_context.verify_mode = ssl.CERT_NONE
+        
+        # Request headers
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                         '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/pdf,application/octet-stream,*/*',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Connection': 'keep-alive'
+        }
+    
+    def log(self, message: str, level: str = "info"):
+        """Conditional logging based on verbosity."""
+        if self.verbose:
+            print(message)
+    
+    
