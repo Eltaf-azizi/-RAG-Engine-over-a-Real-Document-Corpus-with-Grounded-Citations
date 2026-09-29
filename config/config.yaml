@@ -1,0 +1,29 @@
+# ============================================================
+# CONSTITUTIONAL RAG Q&A SYSTEM — MASTER CONFIGURATION
+# ============================================================
+# Project: E2 · RAG Engine over Real Document Corpus
+# Domain: History & Politics (Q3)
+# Countries: United States, France, Germany, Pakistan, Norway, Canada
+# Version: 2.0.0
+# ============================================================
+
+# ──────────────────────────────────────
+# DOCUMENT INGESTION
+# ──────────────────────────────────────
+ingestion:
+  # Supported file formats for source documents
+  supported_formats:
+    - ".pdf"
+    - ".txt"
+    - ".md"
+  
+  # Chunking parameters
+  chunk_size: 500              # Characters per chunk
+  chunk_overlap: 50            # Overlap between consecutive chunks
+  min_chunk_length: 100        # Discard chunks shorter than this (prevents noise)
+  
+  # Source documents directory
+  data_directory: "data/documents"
+  
+  # Processed artifacts directory
+  processed_directory: "data/processed"
