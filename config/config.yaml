@@ -59,3 +59,52 @@ vector_store:
   hnsw_M: 16
   hnsw_ef_construction: 100
   hnsw_ef_search: 10
+
+# ──────────────────────────────────────
+# RETRIEVAL
+# ──────────────────────────────────────
+retrieval:
+  # Number of chunks to retrieve per query
+  top_k: 3
+  
+  # Minimum similarity score (0-1) to consider a chunk relevant
+  # Below this threshold = "I don't have enough information"
+  similarity_threshold: 0.5
+  
+  # Warning threshold for debugging
+  min_similarity_warning: 0.3
+
+# ──────────────────────────────────────
+# LLM GENERATION
+# ──────────────────────────────────────
+llm:
+  # Provider: "ollama" (local), "openai", "groq", or "custom"
+  provider: "ollama"
+  
+  # Model name (depends on provider)
+  # Ollama: llama3.1, llama3, mistral, phi3
+  # OpenAI: gpt-3.5-turbo, gpt-4
+  # Groq: llama3-70b-8192, mixtral-8x7b-32768
+  model: "llama3.1"
+  
+  # API base URL (for Ollama and custom providers)
+  api_base: "http://localhost:11434/v1"
+  
+  # Low temperature for factual, deterministic answers
+  temperature: 0.1
+  
+  # Maximum tokens in generated answer
+  max_tokens: 500
+  
+  # System prompt — enforces citation and grounding
+  system_prompt: |
+    You are a constitutional law expert assistant. 
+    Answer questions using ONLY the information provided in the context.
+    
+    RULES:
+    1. Use ONLY the provided context — no outside knowledge
+    2. Cite EVERY fact using this format: [Source: filename, Page: X]
+    3. If the context doesn't contain enough information, say exactly: 
+       "I don't have enough information in the provided documents to answer this question."
+    4. Be concise, factual, and well-organized
+    5. Do not speculate or add information not in the context
