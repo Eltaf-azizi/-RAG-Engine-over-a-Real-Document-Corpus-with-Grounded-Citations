@@ -27,3 +27,35 @@ ingestion:
   
   # Processed artifacts directory
   processed_directory: "data/processed"
+
+# ──────────────────────────────────────
+# EMBEDDING MODEL
+# ──────────────────────────────────────
+embedding:
+  # all-MiniLM-L6-v2: 384 dimensions, 80MB, CPU-friendly, 1B+ training pairs
+  model_name: "all-MiniLM-L6-v2"
+  
+  # Batch size for encoding (adjust based on RAM)
+  batch_size: 32
+  
+  # Compute device: "cpu" or "cuda"
+  device: "cpu"
+  
+  # Normalize embeddings for cosine similarity
+  normalize_embeddings: true
+
+# ──────────────────────────────────────
+# VECTOR STORE (ChromaDB)
+# ──────────────────────────────────────
+vector_store:
+  type: "chroma"
+  persist_directory: "./chroma_db"
+  collection_name: "constitutional_documents"
+  
+  # Distance metric for similarity search
+  distance_metric: "cosine"
+  
+  # HNSW index parameters (ChromaDB defaults are fine)
+  hnsw_M: 16
+  hnsw_ef_construction: 100
+  hnsw_ef_search: 10
