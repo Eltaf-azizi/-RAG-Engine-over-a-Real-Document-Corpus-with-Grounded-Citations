@@ -108,3 +108,43 @@ llm:
        "I don't have enough information in the provided documents to answer this question."
     4. Be concise, factual, and well-organized
     5. Do not speculate or add information not in the context
+
+# ──────────────────────────────────────
+# EVALUATION
+# ──────────────────────────────────────
+evaluation:
+  # Path to evaluation questions file
+  questions_file: "config/eval_questions.json"
+  
+  # Target hit-rate for Definition of Done
+  target_hit_rate: 0.80
+  
+  # Questions that should trigger refusal (out of scope)
+  out_of_scope_questions:
+    - "What is the recipe for chocolate cake?"
+    - "How do I fix a flat tire?"
+    - "Who won the 1998 World Cup?"
+    - "How does nuclear fusion work?"
+    - "What is the capital of Brazil?"
+    - "How do I cook pasta al dente?"
+
+# ──────────────────────────────────────
+# UI (Streamlit)
+# ──────────────────────────────────────
+ui:
+  title: "📜 Constitutional RAG Q&A"
+  subtitle: "6 Countries · Grounded Citations · No Hallucination"
+  port: 8501
+  theme: "light"
+  sidebar_description: |
+    This system answers questions about constitutional documents 
+    from 6 countries: USA, France, Germany, Pakistan, Norway, Canada.
+
+# ──────────────────────────────────────
+# LOGGING
+# ──────────────────────────────────────
+logging:
+  level: "INFO"          # DEBUG, INFO, WARNING, ERROR
+  log_directory: "logs"
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  date_format: "%Y-%m-%d %H:%M:%S"
