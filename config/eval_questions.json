@@ -1,0 +1,69 @@
+{
+  "description": "Evaluation questions with expected source documents for hit-rate calculation",
+  "version": "3.0",
+  "created": "2026-08-25",
+  "countries": ["united_states", "france", "germany", "pakistan", "norway", "canada"],
+  "total_questions": 30,
+  "categories": {
+    "rights": "Fundamental rights and freedoms",
+    "executive": "Executive branch powers and elections",
+    "legislature": "Legislative branch structure",
+    "judiciary": "Judicial system and courts",
+    "amendment": "Constitutional amendment procedures",
+    "federalism": "Federal vs state/provincial powers",
+    "emergency": "Emergency provisions",
+    "principles": "Founding principles and values",
+    "impeachment": "Removal of officials",
+    "elections": "Election procedures"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "What rights does the First Amendment to the United States Constitution protect?",
+      "expected_source": "constitution_usa.pdf",
+      "category": "rights",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "How can the United States Constitution be amended?",
+      "expected_source": "constitution_usa.pdf",
+      "category": "amendment",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "What are the qualifications to become President of the United States?",
+      "expected_source": "constitution_usa.pdf",
+      "category": "executive",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "question": "What is the process for impeaching the President of the United States?",
+      "expected_source": "constitution_usa.pdf",
+      "category": "impeachment",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "How are justices of the Supreme Court of the United States appointed?",
+      "expected_source": "constitution_usa.pdf",
+      "category": "judiciary",
+      "difficulty": "easy"
+    },
+    {
+      "id": 6,
+      "question": "What are the powers of the President of the French Republic?",
+      "expected_source": "constitution_france.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "How is the French Prime Minister appointed?",
+      "expected_source": "constitution_france.pdf",
+      "category": "executive",
+      "difficulty": "easy"
+    },
+   
