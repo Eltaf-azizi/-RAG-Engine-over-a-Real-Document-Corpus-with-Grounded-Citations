@@ -66,4 +66,39 @@
       "category": "executive",
       "difficulty": "easy"
     },
-   
+    {
+      "id": 8,
+      "question": "What is the role of the Constitutional Council in France?",
+      "expected_source": "constitution_france.pdf",
+      "category": "judiciary",
+      "difficulty": "medium"
+    },
+    {
+      "id": 9,
+      "question": "How is the President of France elected?",
+      "expected_source": "constitution_france.pdf",
+      "category": "elections",
+      "difficulty": "easy"
+    },
+    {
+      "id": 10,
+      "question": "What is the secular nature of the French Republic according to its constitution?",
+      "expected_source": "constitution_france.pdf",
+      "category": "principles",
+      "difficulty": "medium"
+    },
+    {
+      "id": 11,
+      "question": "What basic rights are protected in Germany's Basic Law?",
+      "expected_source": "constitution_germany.pdf",
+      "category": "rights",
+      "difficulty": "easy"
+    },
+    {
+      "id": 12,
+      "question": "How is the German Federal Chancellor elected?",
+      "expected_source": "constitution_germany.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
+    
