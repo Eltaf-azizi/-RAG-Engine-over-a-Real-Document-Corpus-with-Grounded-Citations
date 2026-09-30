@@ -101,4 +101,46 @@
       "category": "executive",
       "difficulty": "medium"
     },
+    {
+      "id": 13,
+      "question": "How does Germany's federal system divide power between the Bund and Länder?",
+      "expected_source": "constitution_germany.pdf",
+      "category": "federalism",
+      "difficulty": "hard"
+    },
+    {
+      "id": 14,
+      "question": "What is the amendment procedure for Germany's Basic Law?",
+      "expected_source": "constitution_germany.pdf",
+      "category": "amendment",
+      "difficulty": "medium"
+    },
+    {
+      "id": 15,
+      "question": "How is the Federal Constitutional Court of Germany structured?",
+      "expected_source": "constitution_germany.pdf",
+      "category": "judiciary",
+      "difficulty": "medium"
+    },
+    {
+      "id": 16,
+      "question": "What fundamental rights are guaranteed by the Constitution of Pakistan?",
+      "expected_source": "constitution_pakistan.pdf",
+      "category": "rights",
+      "difficulty": "easy"
+    },
+    {
+      "id": 17,
+      "question": "How is the President of Pakistan elected?",
+      "expected_source": "constitution_pakistan.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
+    {
+      "id": 18,
+      "question": "What is the role of the Prime Minister in Pakistan's constitution?",
+      "expected_source": "constitution_pakistan.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
     
