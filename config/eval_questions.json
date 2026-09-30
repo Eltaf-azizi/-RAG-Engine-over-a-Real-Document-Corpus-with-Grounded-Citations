@@ -185,4 +185,47 @@
       "category": "judiciary",
       "difficulty": "medium"
     },
-    
+    {
+      "id": 25,
+      "question": "What is the separation of powers principle in Norway's constitution?",
+      "expected_source": "constitution_norway.pdf",
+      "category": "principles",
+      "difficulty": "medium"
+    },
+    {
+      "id": 26,
+      "question": "What rights are protected in Canada's Charter of Rights and Freedoms?",
+      "expected_source": "constitution_canada.pdf",
+      "category": "rights",
+      "difficulty": "easy"
+    },
+    {
+      "id": 27,
+      "question": "How does Canada's federal system divide powers between federal and provincial governments?",
+      "expected_source": "constitution_canada.pdf",
+      "category": "federalism",
+      "difficulty": "hard"
+    },
+    {
+      "id": 28,
+      "question": "What is Canada's constitutional amendment formula?",
+      "expected_source": "constitution_canada.pdf",
+      "category": "amendment",
+      "difficulty": "hard"
+    },
+    {
+      "id": 29,
+      "question": "What role does the Governor General play in Canada's constitution?",
+      "expected_source": "constitution_canada.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
+    {
+      "id": 30,
+      "question": "How is the judiciary structured in Canada according to its constitution?",
+      "expected_source": "constitution_canada.pdf",
+      "category": "judiciary",
+      "difficulty": "medium"
+    }
+  ]
+}
