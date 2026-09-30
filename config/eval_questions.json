@@ -143,4 +143,46 @@
       "category": "executive",
       "difficulty": "medium"
     },
+    {
+      "id": 19,
+      "question": "What Islamic provisions are included in Pakistan's constitution?",
+      "expected_source": "constitution_pakistan.pdf",
+      "category": "principles",
+      "difficulty": "medium"
+    },
+    {
+      "id": 20,
+      "question": "What emergency provisions exist in Pakistan's constitution?",
+      "expected_source": "constitution_pakistan.pdf",
+      "category": "emergency",
+      "difficulty": "hard"
+    },
+    {
+      "id": 21,
+      "question": "What is the role of the King in Norway's constitution?",
+      "expected_source": "constitution_norway.pdf",
+      "category": "executive",
+      "difficulty": "medium"
+    },
+    {
+      "id": 22,
+      "question": "How is the Storting (Norwegian parliament) structured?",
+      "expected_source": "constitution_norway.pdf",
+      "category": "legislature",
+      "difficulty": "medium"
+    },
+    {
+      "id": 23,
+      "question": "What is the amendment procedure in Norway's constitution?",
+      "expected_source": "constitution_norway.pdf",
+      "category": "amendment",
+      "difficulty": "hard"
+    },
+    {
+      "id": 24,
+      "question": "What judicial system does Norway's constitution establish?",
+      "expected_source": "constitution_norway.pdf",
+      "category": "judiciary",
+      "difficulty": "medium"
+    },
     
