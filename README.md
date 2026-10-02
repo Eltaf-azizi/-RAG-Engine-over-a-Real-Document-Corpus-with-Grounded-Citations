@@ -45,3 +45,26 @@ No more guessing. No more fake citations.
 | UI | Streamlit | Fast to build, looks decent |
 | Testing | pytest | Catches bugs before they ship |
 | Language | Python 3.9+ | — |
+ ---
+ 
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.9+
+- [Ollama](https://ollama.ai/download) installed
+- Visual C++ Redistributable ([Windows only](https://aka.ms/vs/17/release/vc_redist.x64.exe))
+- ~4 GB RAM
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/constitutional-rag-qa.git
+cd constitutional-rag-qa
+
+# Create virtual environment
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\Activate.ps1
