@@ -68,3 +68,19 @@ python -m venv venv
 
 # Activate (Windows)
 venv\Scripts\Activate.ps1
+
+# Activate (Mac/Linux)
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# 1. Add PDFs to data/documents/
+
+
+# 2. Ingest documents (load + chunk)
+python src/ingest.py
+
+# 3. Create embeddings + store in ChromaDB
+python src/embed_store.py
+
