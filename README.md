@@ -1,3 +1,7 @@
-# RAG Constitutional QA
+<h1 align="center">Constitutional RAG Q&A System</h1>
 
-This project scaffold contains the requested folders and placeholder files for a constitutional QA RAG application.
+> Retrieval-Augmented Generation over Real Constitutional Documents with Grounded Citations
+
+Hey! This is my RAG project — it answers questions about constitutions from 6 countries, always cites its sources, and refuses to make stuff up when it doesn't know the answer.
+
+---
