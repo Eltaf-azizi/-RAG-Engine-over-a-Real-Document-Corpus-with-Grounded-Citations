@@ -19,3 +19,16 @@ So this system:
 No more guessing. No more fake citations.
 
 ---
+## 🌍 Countries Covered
+
+| Country | Document | Chunks |
+|---------|----------|--------|
+| 🇺🇸 USA | Constitution | 647 |
+| 🇫🇷 France | Constitution of 1958 | 202 |
+| 🇩🇪 Germany | Basic Law | 470 |
+| 🇵🇰 Pakistan | Constitution of 1973 | 975 |
+| 🇳🇴 Norway | Constitution of 1814 | 102 |
+| 🇨🇦 Canada | Constitution Act 1982 | 463 |
+| **Total** | | **2,859** |
+
+---
