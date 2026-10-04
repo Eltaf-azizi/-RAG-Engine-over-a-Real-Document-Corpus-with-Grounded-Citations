@@ -100,3 +100,13 @@ streamlit run app.py
 Then open http://localhost:8501 in your browser.
 ```
 
+## 💬 Example Queries
+Try asking things like:
+
+ - "What fundamental rights do citizens have?"
+ - "How is the president elected?"
+ - "What's the process to amend the constitution?"
+ - "What emergency powers exist?"
+ - "How are judges appointed?"
+
+And out-of-scope questions like "What's the recipe for pizza?" will get refused.
