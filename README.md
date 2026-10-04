@@ -122,3 +122,27 @@ I wrote 30 test questions across 8 categories. The system measures:
 ```bash
 python src/eval.py
 ```
+
+## Project Structure
+```
+constitutional-rag-qa/
+├── config/
+│   ├── config.yaml           # All settings
+│   └── eval_questions.json   # 30 test questions
+├── data/
+│   ├── documents/            # Source PDFs
+│   └── processed/            # Chunk metadata
+├── src/
+│   ├── ingest.py             # Load & chunk PDFs
+│   ├── embed_store.py        # Embeddings + ChromaDB
+│   ├── retrieve.py           # Semantic search
+│   ├── generate.py           # LLM answers
+│   ├── eval.py               # Evaluation suite
+│   └── utils.py              # Shared utilities
+├── tests/                    # Unit tests
+├── scripts/                  # Setup helpers
+├── app.py                    # Streamlit UI
+├── Makefile                  # Shortcut commands
+├── requirements.txt
+└── README.md
+```
