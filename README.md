@@ -84,3 +84,19 @@ python src/ingest.py
 # 3. Create embeddings + store in ChromaDB
 python src/embed_store.py
 
+
+# 4. Pull the LLM model (in a separate terminal)
+ollama pull llama3.1
+ollama serve
+
+# 5. Test retrieval
+python src/retrieve.py
+
+# 6. Test answer generation
+python src/generate.py
+
+# 7. Launch the UI
+streamlit run app.py
+Then open http://localhost:8501 in your browser.
+```
+
