@@ -184,8 +184,8 @@ pytest tests/ --cov=src --cov-report=html
 
 ##  What I Learned
 
-1. Retrieval matters more than the LLM — if search is bad, answers are bad
-2. Chunk size is a tradeoff — too big = noise, too small = lost context
-3. Threshold tuning is tricky — too high misses answers, too low lets hallucinations through
-4. Local LLMs are good enough — Llama 3.1 handles this fine
-5. Keep your project path short on Windows — seriously
+1. **Retrieval matters more than the LLM** if search is bad, answers are bad
+2. **Chunk size is a tradeoff** too big = noise, too small = lost context
+3. **Threshold tuning is tricky** too high misses answers, too low lets hallucinations through
+4. **Local LLMs are good enough** Llama 3.1 handles this fine
+5. **Keep your project path short on Windows** seriously
