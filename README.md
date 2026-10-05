@@ -112,6 +112,19 @@ Try asking things like:
 And out-of-scope questions like "What's the recipe for pizza?" will get refused.
 
 
+## ⚙️ Configuration
+
+Everything lives in config/config.yaml. The important bits:
+
+|Setting	| Default |	What it does|
+|--------|---------|-------------|
+|chunk_size |	500 |	Characters per chunk|
+|chunk_overlap |	50 |	Overlap between chunks|
+|top_k |	3 |	How many chunks to retrieve|
+|similarity_threshold |	0.5 |	Below this = "I don't know"|
+|llm.model |	llama3.1 |	Which LLM to use|
+|llm.temperature |	0.1 |	Lower = more factual|
+
 ## 📊 Evaluation
 I wrote 30 test questions across 8 categories. The system measures:
 
