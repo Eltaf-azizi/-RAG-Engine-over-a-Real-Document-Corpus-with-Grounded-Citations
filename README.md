@@ -5,7 +5,7 @@
 Hey! This is my RAG project — it answers questions about constitutions from 6 countries, always cites its sources, and refuses to make stuff up when it doesn't know the answer.
 
 ---
-## 🤔 What is this?
+##  What is this?
 
 I built this to solve a simple problem: LLMs hallucinate. They confidently make up facts that sound real but aren't. When you're dealing with constitutional law, that's a problem.
 
@@ -20,7 +20,7 @@ No more guessing. No more fake citations.
 
 ---
 
-## 🌍 Countries Covered
+##  Countries Covered
 
 | Country | Document | Chunks |
 |---------|----------|--------|
@@ -34,7 +34,7 @@ No more guessing. No more fake citations.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Tool | Why |
 |-------|------|-----|
@@ -47,7 +47,7 @@ No more guessing. No more fake citations.
 | Language | Python 3.9+ | — |
  ---
  
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -100,7 +100,7 @@ streamlit run app.py
 Then open http://localhost:8501 in your browser.
 ```
 
-## 💬 Example Queries
+##  Example Queries
 Try asking things like:
 
  - "What fundamental rights do citizens have?"
@@ -112,7 +112,7 @@ Try asking things like:
 And out-of-scope questions like "What's the recipe for pizza?" will get refused.
 
 
-## ⚙️ Configuration
+##  Configuration
 
 Everything lives in config/config.yaml. The important bits:
 
@@ -125,7 +125,7 @@ Everything lives in config/config.yaml. The important bits:
 |llm.model |	llama3.1 |	Which LLM to use|
 |llm.temperature |	0.1 |	Lower = more factual|
 
-## 📊 Evaluation
+##  Evaluation
 I wrote 30 test questions across 8 categories. The system measures:
 
  - Hit rate — did search find the right document? (target: ≥80%)
@@ -136,7 +136,7 @@ I wrote 30 test questions across 8 categories. The system measures:
 python src/eval.py
 ```
 
-## 🐛 Problems I Ran Into (and how I fixed them)
+##  Problems I Ran Into (and how I fixed them)
 
 | Problem |	Fix  |
 |--------|------|
@@ -172,7 +172,7 @@ constitutional-rag-qa/
 └── README.md
 ```
 
-##🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -181,3 +181,11 @@ pytest tests/ -v
 # With coverage
 pytest tests/ --cov=src --cov-report=html
 ```
+
+##  What I Learned
+
+1. Retrieval matters more than the LLM — if search is bad, answers are bad
+2. Chunk size is a tradeoff — too big = noise, too small = lost context
+3. Threshold tuning is tricky — too high misses answers, too low lets hallucinations through
+4. Local LLMs are good enough — Llama 3.1 handles this fine
+5. Keep your project path short on Windows — seriously
