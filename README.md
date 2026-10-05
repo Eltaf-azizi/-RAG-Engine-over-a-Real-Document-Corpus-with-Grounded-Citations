@@ -123,6 +123,18 @@ I wrote 30 test questions across 8 categories. The system measures:
 python src/eval.py
 ```
 
+## 🐛 Problems I Ran Into (and how I fixed them)
+
+| Problem |	Fix  |
+|--------|------|
+| Windows long paths |	Moved project to C:\rag_project |
+|PyTorch DLL error |	Installed VC++ Redistributable |
+| Pakistan PDF encrypted |	pip install pycryptodome |
+| Empty PDF text |	Switched to text-based PDFs |
+| Slow downloads |	Used Aliyun mirror for pip |
+
+---
+
 ## Project Structure
 ```
 constitutional-rag-qa/
