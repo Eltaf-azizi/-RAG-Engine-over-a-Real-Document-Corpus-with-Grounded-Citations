@@ -189,3 +189,10 @@ pytest tests/ --cov=src --cov-report=html
 3. **Threshold tuning is tricky** too high misses answers, too low lets hallucinations through
 4. **Local LLMs are good enough** Llama 3.1 handles this fine
 5. **Keep your project path short on Windows** seriously
+
+## Future Ideas
+□ Add more countries
+□ Hybrid search (keyword + semantic)
+□ Re-ranking step
+□ Streaming answers
+□ Side-by-side source view in UI
